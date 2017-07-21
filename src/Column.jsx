@@ -32,22 +32,57 @@ function collect(connect, moniter) {
 }
 
 class Column extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = { adding: false, newCardText: "" }
+    this.toggleAddCard = this.toggleAddCard.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSave = this.handleSave.bind(this);
+  }
+
+  toggleAddCard() {
+    this.setState({ adding: !this.state.adding })
+  }
+
+  handleChange(e) {
+    this.setState({newCardText: e.target.value});
+  }
+
+  handleSave() {
+    this.props.addCard(this.state.newCardText)
+    this.toggleAddCard()
+    this.setState({ newCardText: "" })
+  }
+
+
   render() {
     const { connectDropTarget, moveCard, columnIdx, cards } = this.props
+    const toggleButtonText = this.state.adding ? "Cancel" : "Add Card"
     return connectDropTarget(
       <div>
         {cards.map((card, i) => (
-          <div style={styles.cardContainer}>
+          <div key={i} style={styles.cardContainer}>
             <span style={styles.arrowButtons} onClick={moveCard(columnIdx)(-1)(i)}>&lt;</span>
             <Card
               idx={i}
               text={card.text}
-              key={i}
               column={columnIdx}
             />
             <span style={styles.arrowButtons} onClick={moveCard(columnIdx)(1)(i)}>&gt;</span>
           </div>
         ))}
+        {this.state.adding &&
+          <div>
+            <input
+              type="text"
+              value={this.state.newCardText}
+              onChange={this.handleChange}
+            />
+          <button onClick={this.handleSave}>Save</button>
+          </div>
+        }
+        <div style={{cursor: "pointer"}} onClick={this.toggleAddCard}>{toggleButtonText}</div>
       </div>
     )
   }
