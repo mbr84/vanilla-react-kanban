@@ -34,15 +34,14 @@ class Kanban extends Component {
   }
 
   moveCard(column) {
-    const _this = this
-    return (direction) => {
-      return (cardIdx) => {
+    return direction => {
+      return cardIdx => {
         return () => {
-          const newColumns = _this.state.columns
-          const card = newColumns[column][cardIdx]
-          newColumns[column].splice(cardIdx, 1)
-          newColumns[column + direction % this.state.columns.length].push(card)
-          _this.setState({ columns: newColumns })
+          const columns = this.state.columns
+          const card = columns[column][cardIdx]
+          columns[column].splice(cardIdx, 1)
+          columns[(column + direction + columns.length) % columns.length].push(card)
+          this.setState({ columns })
         }
       }
     }
