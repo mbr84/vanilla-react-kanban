@@ -48,11 +48,11 @@ class Kanban extends Component {
   }
 
   addCard(column) {
-    return () => {
-      const newColumns = this.state.columns
-      const newCardText = window.prompt("What should your card say?")
-      newColumns[column].push({id: this.state.nextId++,  text: newCardText})
-      this.setState({ columns: newColumns })
+    const _this = this
+    return (newCardText) => {
+      const newColumns = _this.state.columns
+      newColumns[column].push({id: _this.state.nextId++,  text: newCardText})
+      _this.setState({ columns: newColumns })
     }
   }
   render() {
@@ -64,8 +64,8 @@ class Kanban extends Component {
               moveCard={this.moveCard}
               cards={column}
               columnIdx={i}
+              addCard={this.addCard(i)}
             />
-            <div style={{cursor: "pointer"}} onClick={this.addCard(i)}>+ Add Card</div>
           </div>
         ))}
       </div>
