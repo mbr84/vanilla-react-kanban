@@ -12,11 +12,8 @@ class AddColumn extends Component {
     this.state = { adding: false, newColumnTitle: "" }
   }
 
-  handleChange() {
-    const _this = this
-    return function(e) {
-      _this.setState({ newColumnTitle: e.target.value })
-    }
+  handleChange(e) {
+      this.setState({ newColumnTitle: e.target.value })
   }
 
   toggleAddColumn() {
@@ -29,20 +26,20 @@ class AddColumn extends Component {
       <div className="column" style={{fontSize: '1.2em'}}>
         {
           !this.state.adding
-            ?
-              <div
-                onClick={this.toggleAddColumn}
-                style={{ cursor: 'pointer'}}
-              >
-                <MdAddCircleOutline style={{ verticalAlign: 'bottom', fontSize: '1.1em' }}/> New List
-              </div>
-            :
-              <AddColumnForm
-                newColumnTitle={this.state.newColumnTitle}
-                handleChange={this.handleChange()}
-                addColumn={addColumn.bind(this)()}
-                toggleAddColumn={this.toggleAddColumn.bind(this)}
-              />
+          ?
+            <div
+              onClick={this.toggleAddColumn}
+              style={{ cursor: 'pointer'}}
+            >
+              <MdAddCircleOutline style={{ verticalAlign: 'bottom', fontSize: '1.1em' }}/> New List
+            </div>
+          :
+            <AddColumnForm
+              newColumnTitle={this.state.newColumnTitle}
+              handleChange={this.handleChange.bind(this)}
+              addColumn={addColumn.bind(this)()}
+              toggleAddColumn={this.toggleAddColumn.bind(this)}
+            />
         }
 
       </div>
@@ -51,7 +48,7 @@ class AddColumn extends Component {
 }
 
 AddColumn.propTypes = {
-  addColun: PropTypes.func.isRequired,
+  addColumn: PropTypes.func.isRequired,
 }
 
 export default AddColumn
