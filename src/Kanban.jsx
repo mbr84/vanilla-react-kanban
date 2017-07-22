@@ -13,20 +13,12 @@ class Kanban extends Component {
   constructor(props) {
     super(props)
     const lastState = JSON.parse(localStorage.getItem('lastState'))
-    if (lastState) {
-      const columns = lastState.columns.map(col =>
-        col.map(card => ({
-          text: card.text,
-          id: card.id,
-          dragging: false
-        })))
-      lastState.columns = columns
-    }
+    
     this.addCard = this.addCard.bind(this);
     this.moveCard = this.moveCard.bind(this);
     this.toggleDrag = this.toggleDrag.bind(this);
     this.saveBoard = this.saveBoard.bind(this);
-    this.state =  lastState ||
+    this.state = lastState ||
       {
         nextId: 12,
         columns: [
@@ -54,15 +46,11 @@ class Kanban extends Component {
   }
 
   moveCard(column) {
-    const _this = this
-      return (dragIdx, hoverIndex, fromColumn) => {
-        const columns = _this.state.columns
-        fromColumn = fromColumn === undefined ? column : fromColumn
+      return (dragIdx, hoverIdx, fromColumn) => {
+        const columns = this.state.columns
         const card = columns[fromColumn][dragIdx]
         this.setState(update(this.state, {columns: { [fromColumn]: {$splice: [[dragIdx, 1]]}}}))
-        this.setState(update(this.state,
-          { columns: {[column]: {$splice: [[hoverIndex, 0, card]]} }}))
-        this.saveBoard()
+        this.setState(update(this.state, { columns: { [column]: {$splice: [[hoverIdx, 0, card]]}}}))
     }
 
   }
@@ -71,6 +59,7 @@ class Kanban extends Component {
     const currentDragState = this.state.columns[columnIdx][cardIdx].dragging
     this.setState(update(this.state, {columns:
       {[columnIdx]: {[cardIdx]: {dragging: {$set: !currentDragState}}}}}))
+    this.saveBoard()
   }
 
   addCard(column) {

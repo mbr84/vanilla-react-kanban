@@ -45,3 +45,25 @@ export const cardTarget = {
     monitor.getItem().column = props.column;
   },
 };
+
+// Column Target (only accepts drops when moving card to empty column)
+export const columnTarget = {
+  canDrop(props) {
+    return props.cards.length === 0
+
+  },
+
+  drop(props, monitor) {
+    const card = monitor.getItem()
+    const dragIndex = card.idx;
+    props.moveCard(props.columnIdx)(dragIndex, 0, card.column)
+    monitor.getItem().idx = 0;
+    monitor.getItem().column = props.columnIdx;
+  }
+}
+
+export function collect(connect, moniter) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+  }
+}

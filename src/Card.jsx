@@ -2,35 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ItemTypes from './itemTypes';
 import { DragSource, DropTarget } from 'react-dnd';
-import { cardSource, cardTarget} from './dnd-config'
-
-const styles = {
-  minHeight: "50px",
-  backgroundColor: 'white',
-  color: 'rgb(77, 77, 77)',
-  fontSize: '18px',
-  fontWeight: '600',
-  opacity: '1',
-  width: '100%',
-  boxSizing: 'border-box',
-  padding: '4%',
-  borderRadius: '5px',
-  marginBottom: '10px',
-  transition: ".2s all",
-  textAlign: "start",
-}
+import { cardSource, cardTarget} from './dragndrop-helpers'
 
 class Card extends Component {
   render() {
     const { connectDragSource, dragging, connectDropTarget, text } = this.props;
-    const dragStyles = dragging ? {
-      backgroundColor: "rgb(196, 196, 194)",
-      color: "rgb(196, 196, 194)",
-    } : {}
+    const cardClass = dragging ? "card dragging" : "card"
 
     return connectDragSource(
       connectDropTarget(
-        <div style={Object.assign({}, styles, dragStyles)}>{text}</div>
+        <div className={cardClass}>{text}</div>
       )
     )
   }
@@ -50,6 +31,8 @@ const DropCard = DropTarget(
   (connect) => ({ connectDropTarget: connect.dropTarget() })
 )(Card)
 
-export default DragSource(ItemTypes.CARD, cardSource, (connect, monitor) => ({
-  connectDragSource: connect.dragSource(),
-}))(DropCard)
+export default DragSource(
+  ItemTypes.CARD,
+  cardSource,
+  (connect, monitor) => ({ connectDragSource: connect.dragSource() })
+)(DropCard)

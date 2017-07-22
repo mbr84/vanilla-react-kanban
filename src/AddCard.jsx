@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import MdClose from 'react-icons/lib/md/close';
 
 const styles = {
   boxSizing: 'border-box',
@@ -31,7 +32,9 @@ export default class addCard extends Component {
 
 
   render() {
-    const toggleButtonText = this.state.adding ? "Cancel" : "Add a Card"
+    const toggleButtonText = this.state.adding
+      ? <MdClose style={{fontSize: '1.9em'}} />
+      : "Add a Card"
 
     return (
       <div style={styles}>
@@ -49,13 +52,17 @@ export default class addCard extends Component {
         <div style={{ display: "flex", marginTop: '5px' }}>
           {this.state.adding &&
             <div
-              style={{cursor: "pointer", marginRight: '10px'}}
               className="button"
               onClick={this.handleSave}
             >
               Add
             </div>}
-          <div style={{cursor: "pointer"}} onClick={this.toggleAddCard}>{toggleButtonText}</div>
+          <div
+            style={{cursor: 'pointer', color: 'rgb(136, 136, 136)'}}
+            onClick={this.toggleAddCard}
+          >
+            {toggleButtonText}
+          </div>
         </div>
       </div>
     )

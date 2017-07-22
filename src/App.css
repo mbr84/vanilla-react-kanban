@@ -19,3 +19,44 @@ body {
   background-color: rgb(0,103,163);
   width: 100%;
 }
+
+.column {
+  width: 20vw;
+  min-width: 350px;
+  margin: 0 3px 0 3px;
+  background-color: rgb(226, 228, 230);
+  padding: 35px 20px 20px 20px;
+  border-radius: 10px;
+}
+
+.card {
+  min-height: 50px;
+  background-color: white;
+  color: rgb(77, 77, 77);
+  font-size: 18px;
+  font-weight: 600;
+  opacity: 1;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 4%;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  transition: .2s all;
+  text-align: start;
+}
+
+.dragging {
+  background-color: rgb(196, 196, 194);
+  color: rgb(196, 196, 194);
+}
+
+.button {
+  cursor: pointer;
+  margin-right: 10px;
+  background-image: linear-gradient(to top, rgb(96,188,78), rgb(90,172,68));
+  padding: 8px 13px;
+  color: white;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+}
