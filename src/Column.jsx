@@ -9,9 +9,10 @@ import { collect, columnTarget } from './dragndrop-helpers'
 
 class Column extends Component {
   render() {
-    const { moveCard, columnIdx, cards, connectDropTarget } = this.props
+    const { moveCard, columnIdx, cards, connectDropTarget, title } = this.props
     return (
       <div className="column">
+        <div style={{ marginBottom: '10px', fontWeight: '800', textAlign: 'start' }}>{title}</div>
         {connectDropTarget(
           <div style={{minHeight: "50px"}}>
             {cards.map((card, i) => (
@@ -36,7 +37,8 @@ Column.propTypes = {
   cards: PropTypes.array.isRequired,
   moveCard: PropTypes.func.isRequired,
   columnIdx: PropTypes.number.isRequired,
-  cards: PropTypes.array.isRequired,
+  title: PropTypes.string.isRequired,
+  data: PropTypes.object.isRequired,
 }
 
 export default DropTarget(ItemTypes.CARD, columnTarget, collect)(Column)
