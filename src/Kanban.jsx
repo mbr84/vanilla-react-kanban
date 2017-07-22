@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import update from 'react/lib/update';
 import Column from './Column';
+import AddColumn from './AddColumn';
 import MdAddCircleOutline from 'react-icons/lib/md/add-circle-outline'
 import MdClose from 'react-icons/lib/md/close';
 import './App.css';
@@ -21,44 +22,13 @@ class Kanban extends Component {
     this.toggleDrag = this.toggleDrag.bind(this);
     this.saveBoard = this.saveBoard.bind(this);
     this.addColumn = this.addColumn.bind(this);
-    this.toggleAddColumn = this.toggleAddColumn.bind(this);
-    this.handleChange = this.handleChange.bind(this);
     this.state = lastState ||
       {
-        nextId: 12,
-        adding: false,
-        newColumnText: "",
+        nextId: 0,
         columns: [
-          {
-            title: "To Do",
-            data: {},
-            cards: [
-              { text: "card 0", id: 0, dragging: false },
-              { text: "card 1", id: 1, dragging: false },
-              { text: "card 2", id: 2, dragging: false },
-              { text: "card 3", id: 3, dragging: false },
-            ]
-          },
-          {
-            title: "Doing",
-            data: {},
-            cards: [
-              { text: "card 4", id: 4, dragging: false },
-              { text: "card 5", id: 5, dragging: false },
-              { text: "card 6", id: 6, dragging: false },
-              { text: "card 7", id: 7, dragging: false },
-            ]
-          },
-          {
-            title: "Done",
-            data: {},
-            cards: [
-              { text: "card 8", id: 8, dragging: false },
-              { text: "card 9", id: 9, dragging: false },
-              { text: "card 10", id: 10, dragging: false },
-              { text: "card 11", id: 11, dragging: false },
-            ]
-          },
+          { title: "To Do", data: {}, cards: [] },
+          { title: "Doing", data: {}, cards: [] },
+          { title: "Done", data: {}, cards: [] },
         ]
       }
   }
@@ -92,24 +62,19 @@ class Kanban extends Component {
   }
 
   addColumn() {
-    this.setState(update(this.state, { columns: {$push: [{
-        title: this.state.newColumnTitle,
-        data: {},
-        cards: [] }]
-      }}))
-    this.setState({ newColumnTitle: "", adding: false })
+    const _this = this
+    return function() {
+      return title => {
+        _this.setState(update(_this.state, { columns: {
+          $push: [{ title: title, data: {}, cards: [] }] } }))
+        this.setState({ newColumnTitle: "", adding: false })
+        _this.saveBoard()
+      }
+    }
   }
 
   saveBoard() {
     setTimeout(() => localStorage.setItem('lastState', JSON.stringify(this.state)), 0)
-  }
-
-  handleChange(e) {
-    this.setState({ newColumnTitle: e.target.value })
-  }
-
-  toggleAddColumn() {
-    this.setState({ adding: !this.state.adding})
   }
 
   render() {
@@ -129,39 +94,7 @@ class Kanban extends Component {
               toggleDrag={this.toggleDrag}
             />
         ))}
-        <div className="column" style={{fontSize: '1.2em'}}>
-          {!this.state.adding &&
-            <div
-              onClick={this.toggleAddColumn}
-              style={{ cursor: 'pointer'}}
-            >
-              <MdAddCircleOutline style={{ verticalAlign: 'bottom', fontSize: '1.1em' }}/> New List
-            </div>}
-          {this.state.adding &&
-            <div>
-              <input
-                style={{ width: '100%', fontSize: '1rem', height: '36px', boxSizing: 'border-box' }}
-                type="text"
-                value={this.state.newColumnTitle}
-                onChange={this.handleChange}
-                />
-              <div style={{ display: 'flex', justifyContent: 'flexStart', alignItems: 'flexEnd' }}>
-                <div
-                  className="button"
-                  onClick={this.addColumn}
-                  style={{ marginTop: '10px' }}
-                >
-                  Add
-                </div>
-                <MdClose
-                  style={{fontSize: '1.9em', cursor: 'pointer' }}
-                  onClick={this.toggleAddColumn}
-                />
-              </div>
-
-            </div>}
-          </div>
-
+        <AddColumn addColumn={this.addColumn()} />
       </div>
     );
   }

@@ -16,15 +16,15 @@ class Column extends Component {
         {connectDropTarget(
           <div style={{minHeight: "50px"}}>
             {cards.map((card, i) => (
-                <Card
-                  idx={i}
-                  key={card.id}
-                  text={card.text}
-                  column={columnIdx}
-                  toggleDrag={this.props.toggleDrag}
-                  dragging={card.dragging}
-                  moveCard={moveCard(columnIdx)}
-                />
+              <Card
+                idx={i}
+                key={card.id}
+                text={card.text}
+                column={columnIdx}
+                toggleDrag={this.props.toggleDrag}
+                dragging={card.dragging}
+                moveCard={moveCard(columnIdx)}
+              />
             ))}
           </div>)}
         <AddCard addCard={this.props.addCard} />
