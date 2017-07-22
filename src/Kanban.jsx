@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import update from 'react/lib/update';
 import Column from './Column';
+import MdAddCircleOutline from 'react-icons/lib/md/add-circle-outline'
 import './App.css';
 
 const styles = {
@@ -13,11 +14,12 @@ class Kanban extends Component {
   constructor(props) {
     super(props)
     const lastState = JSON.parse(localStorage.getItem('lastState'))
-    
+
     this.addCard = this.addCard.bind(this);
     this.moveCard = this.moveCard.bind(this);
     this.toggleDrag = this.toggleDrag.bind(this);
     this.saveBoard = this.saveBoard.bind(this);
+    this.addColumn = this.addColumn.bind(this);
     this.state = lastState ||
       {
         nextId: 12,
@@ -71,6 +73,10 @@ class Kanban extends Component {
     }
   }
 
+  addColumn() {
+    this.setState(update(this.state, { columns: {$push: [[]] }}))
+  }
+
   saveBoard() {
     setTimeout(() => localStorage.setItem('lastState', JSON.stringify(this.state)), 0)
   }
@@ -90,6 +96,13 @@ class Kanban extends Component {
               toggleDrag={this.toggleDrag}
             />
         ))}
+        <div
+          className="column"
+          onClick={this.addColumn}
+          style={{ cursor: 'pointer', fontSize: '1.2em'}}
+        >
+          <MdAddCircleOutline style={{ verticalAlign: 'bottom', fontSize: '1.1em' }}/> New List
+        </div>
       </div>
     );
   }
