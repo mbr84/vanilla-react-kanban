@@ -9,12 +9,12 @@ import { collect, columnTarget } from '../dragndrop-helpers'
 
 class Column extends Component {
   render() {
-    const { moveCard, columnIdx, cards, connectDropTarget, title } = this.props
+    const { moveCard, columnIdx, cards, isOver, canDrop, connectDropTarget, title } = this.props
     return (
       <div className="column">
         <div style={{ marginBottom: '10px', fontWeight: '800', textAlign: 'start' }}>{title}</div>
         {connectDropTarget(
-          <div style={{minHeight: "50px"}}>
+          <div style={{minHeight: "10px"}}>
             {cards.map((card, i) => (
               <Card
                 idx={i}
@@ -26,8 +26,9 @@ class Column extends Component {
                 moveCard={moveCard(columnIdx)}
               />
             ))}
+            {isOver && canDrop && <div className="card dragging"></div>}
+            <AddCard addCard={this.props.addCard} />
           </div>)}
-        <AddCard addCard={this.props.addCard} />
       </div>
     )
   }

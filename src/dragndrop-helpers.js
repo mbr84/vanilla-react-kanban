@@ -61,8 +61,10 @@ export const columnTarget = {
   }
 }
 
-export function collect(connect, moniter) {
+export function collect(connect, monitor) {
   return {
     connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver(),
+    canDrop: monitor.canDrop(),
   }
 }
