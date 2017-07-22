@@ -32,16 +32,16 @@ class AddCard extends Component {
 
 
   render() {
-    const toggleButtonText = this.state.adding
-      ? <MdClose style={{fontSize: '1.9em'}} />
-      : "Add a Card"
-
+    const [toggleButtonText, elHeight] = this.state.adding
+      ? [<MdClose style={{fontSize: '1.9em'}}/>, '110px' ]
+      : ["Add a Card", "50px"]
+    styles.height = elHeight
     return (
       <div style={styles}>
         {this.state.adding &&
           <div>
             <textarea
-              style={{ width: '100%', fontSize: '1rem' }}
+              style={{ width: '100%', fontSize: '1rem', boxSizing: 'border-box' }}
               type="text"
               value={this.state.newCardText}
               onChange={this.handleChange}
@@ -49,7 +49,7 @@ class AddCard extends Component {
 
           </div>
         }
-        <div style={{ display: "flex", marginTop: '5px' }}>
+        <div style={{ display: "flex", marginTop: '5px', position: 'absolute', bottom: '12px' }}>
           {this.state.adding &&
             <div
               className="button"

@@ -12,9 +12,17 @@ class Column extends Component {
     const { moveCard, columnIdx, cards, isOver, canDrop, connectDropTarget, title } = this.props
     return (
       <div className="column">
-        <div style={{ marginBottom: '10px', fontWeight: '800', textAlign: 'start' }}>{title}</div>
+        <div style={{ padding: '8px 10px 8px 10px' }}>
+          <div style={{
+              fontWeight: '800',
+              textAlign: 'start',
+              fontSize: '.9em'
+            }}>
+              {title}
+          </div>
+        </div>
         {connectDropTarget(
-          <div style={{minHeight: "10px"}}>
+          <div style={{ minHeight: "60px", padding: '4px', margin: '0 4px 0 4px' }}>
             {cards.map((card, i) => (
               <Card
                 idx={i}
