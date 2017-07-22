@@ -5,7 +5,7 @@ import { DragSource, DropTarget } from 'react-dnd';
 import { cardSource, cardTarget} from './dnd-config'
 
 const styles = {
-  height: "50px",
+  minHeight: "50px",
   backgroundColor: 'white',
   color: 'rgb(77, 77, 77)',
   fontSize: '18px',
