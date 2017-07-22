@@ -3,6 +3,12 @@ import update from 'react/lib/update';
 import Column from './Column';
 import './App.css';
 
+const styles = {
+  display: "flex",
+  justifyContent: "space-around",
+  alignItems: 'flex-start',
+}
+
 class Kanban extends Component {
   constructor(props) {
     super(props)
@@ -31,50 +37,48 @@ class Kanban extends Component {
           { text: "card 10", id: 10, dragging: false },
           { text: "card 11", id: 11, dragging: false },
         ],
+        []
       ]
     }
   }
 
   moveCard(column) {
     const _this = this
-    return direction => {
       return (dragIdx, hoverIndex, fromColumn) => {
-          const columns = _this.state.columns
-          fromColumn = fromColumn === undefined ? column : fromColumn
-          const card = columns[fromColumn][dragIdx]
-          // columns[fromColumn].splice(dragIdx, 1)
-          // columns[(column + direction + columns.length) % columns.length].splice(hoverIndex, 0, card)
-          console.log(fromColumn, column)
-          this.setState(update(this.state, {columns: { [fromColumn]: {$splice: [[dragIdx, 1]]}}}))
-          this.setState(update(this.state,
-            { columns: {[column]: {$splice: [[hoverIndex, 0, card]]} }}))
-      }
+        const columns = _this.state.columns
+        fromColumn = fromColumn === undefined ? column : fromColumn
+        const card = columns[fromColumn][dragIdx]
+        this.setState(update(this.state, {columns: { [fromColumn]: {$splice: [[dragIdx, 1]]}}}))
+        this.setState(update(this.state,
+          { columns: {[column]: {$splice: [[hoverIndex, 0, card]]} }}))
     }
+
   }
 
   toggleDrag(columnIdx, cardIdx) {
-    console.log(this.state.columns[columnIdx][cardIdx].dragging)
-    this.setState(update(this.state, {columns: {[columnIdx]: {[cardIdx]: {dragging: {$set: !this.state.columns[columnIdx][cardIdx].dragging}}}}}))
+    const currentDragState = this.state.columns[columnIdx][cardIdx].dragging
+    this.setState(update(this.state, {columns:
+      {[columnIdx]: {[cardIdx]: {dragging: {$set: !currentDragState}}}}}))
   }
 
   addCard(column) {
-    const _this = this
-    return (newCardText) => {
-      const newColumns = _this.state.columns
-      newColumns[column].push({id: _this.state.nextId++,  text: newCardText})
-      _this.setState({ columns: newColumns })
+    return newCardText => {
+      const columns = this.state.columns
+      columns[column].push({ id: this.state.nextId++,  text: newCardText, dragging: false })
+      this.setState({ columns })
     }
   }
   render() {
     return (
-      <div className="App" style={{display: "flex", justifyContent: "space-around"}}>
+      <div
+        className="App"
+        style={styles}>
         {this.state.columns.map((column, i) => (
             <Column
+              key={i}
               moveCard={this.moveCard}
               cards={column}
-              width={(1 / this.state.columns.length * 100 - 2) + "%"}
               columnIdx={i}
-              key={i}
               addCard={this.addCard(i)}
               toggleDrag={this.toggleDrag}
             />

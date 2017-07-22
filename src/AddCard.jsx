@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 const styles = {
   boxSizing: 'border-box',
   paddingTop: '5%',
-  margin: '10px',
   width: '100%',
 }
 export default class addCard extends Component {
@@ -39,7 +38,7 @@ export default class addCard extends Component {
         {this.state.adding &&
           <div>
             <textarea
-              style={{width: '100%'}}
+              style={{ width: '100%', fontSize: '1rem' }}
               type="text"
               value={this.state.newCardText}
               onChange={this.handleChange}
@@ -47,10 +46,10 @@ export default class addCard extends Component {
 
           </div>
         }
-        <div style={{display: "flex"}}>
+        <div style={{ display: "flex", marginTop: '5px' }}>
           {this.state.adding &&
             <div
-              style={{cursor: "pointer"}}
+              style={{cursor: "pointer", marginRight: '10px'}}
               className="button"
               onClick={this.handleSave}
             >

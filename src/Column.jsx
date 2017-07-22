@@ -5,62 +5,29 @@ import AddCard from './AddCard'
 
 
 const styles = {
-  cardContainer: {
-    display: "flex",
-    justifyContent: "space-between",
-    height: "75px",
-    alignItems: 'center'
-  },
-  arrowButtons: {
-    cursor: 'pointer'
-  }
-}
-
-const columnTarget = {
-  drop(props, moniter) {
-    const card = moniter.getItem()
-    const delta = props.columnIdx - card.props.column
-    props.moveCard(card.props.column)(delta)(card.props.idx)
-  }
-}
-
-function collect(connect, moniter) {
-  return {
-    connectDropTarget: connect.dropTarget(),
-  }
+  width: '20vw',
+  minWidth: '350px',
+  margin: '0 3px 0 3px',
+  backgroundColor: 'rgb(226, 228, 230)',
+  padding: '35px 20px 20px 20px',
+  borderRadius: '10px',
 }
 
 export default class Column extends Component {
-
   render() {
     const { moveCard, columnIdx, cards } = this.props
     return (
-      <div style={{width: this.props.width, margin: "0 3px 0 3px"}}>
+      <div style={styles}>
         {cards.map((card, i) => (
-          // <div key={card.id} style={styles.cardContainer}>
-          //   <span
-          //     style={styles.arrowButtons}
-          //     onClick={moveCard(columnIdx)(-1).bind(undefined, i)}
-          //   >
-          //     &lt;
-          //   </span>
             <Card
               idx={i}
               key={card.id}
-              id={card.id}
               text={card.text}
               column={columnIdx}
               toggleDrag={this.props.toggleDrag}
               dragging={card.dragging}
               moveCard={moveCard(columnIdx)}
             />
-          //   <span
-          //     style={styles.arrowButtons}
-          //     onClick={moveCard(columnIdx)(1).bind(undefined, i)}
-          //   >
-          //     &gt;
-          //   </span>
-          // </div>
         ))}
         <AddCard addCard={this.props.addCard} />
       </div>
@@ -71,6 +38,6 @@ export default class Column extends Component {
 Column.propTypes = {
   cards: PropTypes.array.isRequired,
   moveCard: PropTypes.func.isRequired,
+  columnIdx: PropTypes.number.isRequired,
+  cards: PropTypes.array.isRequired,
 }
-
-// export default DropTarget(ItemTypes.CARD, columnTarget, collect)(Column)
