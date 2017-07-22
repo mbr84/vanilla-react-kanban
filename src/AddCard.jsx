@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+const styles = {
+  boxSizing: 'border-box',
+  paddingTop: '5%',
+  margin: '10px',
+  width: '100%',
+}
 export default class addCard extends Component {
   constructor(props) {
     super(props)
@@ -29,10 +35,11 @@ export default class addCard extends Component {
     const toggleButtonText = this.state.adding ? "Cancel" : "Add a Card"
 
     return (
-      <div>
+      <div style={styles}>
         {this.state.adding &&
           <div>
             <textarea
+              style={{width: '100%'}}
               type="text"
               value={this.state.newCardText}
               onChange={this.handleChange}
@@ -41,7 +48,14 @@ export default class addCard extends Component {
           </div>
         }
         <div style={{display: "flex"}}>
-          {this.state.adding && <button onClick={this.handleSave}>Save</button>}
+          {this.state.adding &&
+            <div
+              style={{cursor: "pointer"}}
+              className="button"
+              onClick={this.handleSave}
+            >
+              Add
+            </div>}
           <div style={{cursor: "pointer"}} onClick={this.toggleAddCard}>{toggleButtonText}</div>
         </div>
       </div>
