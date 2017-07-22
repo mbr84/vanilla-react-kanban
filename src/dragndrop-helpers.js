@@ -38,7 +38,6 @@ export const cardTarget = {
       return;
     }
 
-    const delta = props.column - card.column
     props.moveCard(dragIndex, hoverIndex, card.column);
 
     monitor.getItem().idx = hoverIndex;

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import MdAddCircleOutline from 'react-icons/lib/md/add-circle-outline'
 import AddColumnForm from './AddColumnForm';
 
-export default class addColumn extends Component {
+class AddColumn extends Component {
   constructor(props) {
     super(props)
 
@@ -48,3 +49,9 @@ export default class addColumn extends Component {
     )
   }
 }
+
+AddColumn.propTypes = {
+  addColun: PropTypes.func.isRequired,
+}
+
+export default AddColumn

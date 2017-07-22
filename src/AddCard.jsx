@@ -7,7 +7,7 @@ const styles = {
   paddingTop: '5%',
   width: '100%',
 }
-export default class addCard extends Component {
+class AddCard extends Component {
   constructor(props) {
     super(props)
 
@@ -68,3 +68,6 @@ export default class addCard extends Component {
     )
   }
 }
+
+AddCard.propTypes = { addCard: PropTypes.func.isRequired }
+export default AddCard

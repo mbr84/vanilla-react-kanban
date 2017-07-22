@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import update from 'react/lib/update';
 import Column from './Column';
 import AddColumn from './AddColumn';
-import MdAddCircleOutline from 'react-icons/lib/md/add-circle-outline'
-import MdClose from 'react-icons/lib/md/close';
 import './App.css';
 
 const styles = {
