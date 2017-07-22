@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import update from 'react/lib/update';
 import Column from './Column';
 import AddColumn from './AddColumn';
-import './App.css';
 
 const styles = {
   display: "flex",

@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import ItemTypes from './itemTypes';
+import ItemTypes from '../itemTypes';
 import Card from './Card';
 import AddCard from './AddCard';
 import { DropTarget } from 'react-dnd';
-import { collect, columnTarget } from './dragndrop-helpers'
+import { collect, columnTarget } from '../dragndrop-helpers'
 
 
 class Column extends Component {

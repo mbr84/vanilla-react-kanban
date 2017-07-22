@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ItemTypes from './itemTypes';
+import ItemTypes from '../itemTypes';
 import { DragSource, DropTarget } from 'react-dnd';
-import { cardSource, cardTarget} from './dragndrop-helpers'
+import { cardSource, cardTarget} from '../dragndrop-helpers'
 
 class Card extends Component {
   render() {
