@@ -32,7 +32,6 @@ class Kanban extends Component {
 
   moveCard(column) {
       return (dragIdx, hoverIdx, fromColumn) => {
-        dragIdx, hoverIdx, fromColumn
         const columns = this.state.columns
         const card = columns[fromColumn].cards[dragIdx]
         this.setState(update(this.state, {
@@ -90,7 +89,6 @@ class Kanban extends Component {
               columnIdx={i}
               addCard={this.addCard(i)}
               toggleDrag={this.toggleDrag}
-              size={column.cards.length}
             />
         ))}
         <AddColumn addColumn={this.addColumn()} />

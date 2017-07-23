@@ -4,7 +4,6 @@ import MdClose from 'react-icons/lib/md/close';
 
 let styles = {
   boxSizing: 'border-box',
-  paddingTop: '5%',
   width: '100%',
 }
 class AddCard extends Component {
@@ -49,7 +48,7 @@ class AddCard extends Component {
 
           </div>
         }
-        <div style={{ display: "flex", marginTop: '5px', position: 'absolute', bottom: '12px' }}>
+        <div style={{ display: "flex", marginTop: '5px', position: 'absolute', bottom: '18px' }}>
           {this.state.adding &&
             <div
               className="button"

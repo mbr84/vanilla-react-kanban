@@ -15,7 +15,7 @@ const layerStyles = {
 };
 
 function getItemStyles(props) {
-  const { initialOffset, currentOffset } = props;
+  const { currentOffset } = props;
   let { x, y } = currentOffset;
   const transform = `translate(${x}px, ${y}px)`;
   return {
@@ -25,44 +25,40 @@ function getItemStyles(props) {
 }
 
 class CustomDragLayer extends Component {
-  static propTypes = {
-    item: PropTypes.object,
-    itemType: PropTypes.string,
-    initialOffset: PropTypes.shape({
-      x: PropTypes.number.isRequired,
-      y: PropTypes.number.isRequired,
-    }),
-    currentOffset: PropTypes.shape({
-      x: PropTypes.number.isRequired,
-      y: PropTypes.number.isRequired,
-    }),
-    isDragging: PropTypes.bool.isRequired,
-  };
+  renderItem(type, item) {
+    switch (type) {
+      case ItemTypes.CARD:
+        return (<CardDragPreview text={item.text} />);
+      default:
+        return null;
+    }
+  }
 
-renderItem(type, item) {
-  switch (type) {
-    case ItemTypes.CARD:
-      return (<CardDragPreview text={item.text} />);
-    default:
+  render() {
+    const { item, itemType, isDragging } = this.props;
+    if (!isDragging || this.props.initialOffset === null) {
       return null;
-  }
-}
+    }
 
-render() {
-  const { item, itemType, isDragging } = this.props;
-  if (!isDragging || this.props.initialOffset === null) {
-    return null;
-  }
-
-  return (
-    <div style={layerStyles}>
-      <div style={getItemStyles(this.props)}>
-        {this.renderItem(itemType, item)}
+    return (
+      <div style={layerStyles}>
+        <div style={getItemStyles(this.props)}>
+          {this.renderItem(itemType, item)}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
-}
+
+CustomDragLayer.propTypes = {
+  item: PropTypes.object,
+  itemType: PropTypes.string,
+  currentOffset: PropTypes.shape({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
+  }),
+  isDragging: PropTypes.bool.isRequired,
+};
 
 export default DragLayer(monitor => ({
   item: monitor.getItem(),

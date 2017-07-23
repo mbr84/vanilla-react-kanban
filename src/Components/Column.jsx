@@ -9,7 +9,7 @@ import { collect, columnTarget } from '../dragndrop-helpers'
 
 class Column extends Component {
   render() {
-    const { moveCard, columnIdx, cards, isOver, canDrop, connectDropTarget, title } = this.props
+    const { moveCard, columnIdx, cards, isOver, connectDropTarget, title } = this.props
     return (
       <div className="column">
         <div style={{ padding: '8px 10px 8px 10px' }}>

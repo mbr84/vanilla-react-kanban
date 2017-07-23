@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import MdAddCircleOutline from 'react-icons/lib/md/add-circle-outline'
 import AddColumnForm from './AddColumnForm';
 
 class AddColumn extends Component {

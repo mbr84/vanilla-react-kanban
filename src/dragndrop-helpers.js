@@ -57,7 +57,7 @@ export const columnTarget = {
     const card = monitor.getItem()
     const dragIndex = card.idx;
     props.moveCard(props.columnIdx)(dragIndex, Infinity, card.column)
-    monitor.getItem().idx = props.size;
+    monitor.getItem().idx = props.cards.length;
     monitor.getItem().column = props.columnIdx;
   }
 }
