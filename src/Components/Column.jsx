@@ -21,7 +21,6 @@ class Column extends Component {
               {title}
           </div>
         </div>
-        {connectDropTarget(
           <div style={{ minHeight: "60px", padding: '0 4px 0 4px', margin: '0 4px 0 4px' }}>
             {cards.map((card, i) => (
               <Card
@@ -34,9 +33,11 @@ class Column extends Component {
                 moveCard={moveCard(columnIdx)}
               />
             ))}
-            {isOver && canDrop && <div className="card dragging"></div>}
+            {connectDropTarget(<div>
+            {isOver && <div className="card dragging"></div>}
             <AddCard addCard={this.props.addCard} />
           </div>)}
+        </div>
       </div>
     )
   }

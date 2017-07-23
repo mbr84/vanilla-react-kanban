@@ -35,7 +35,7 @@ export const cardTarget = {
       return;
     }
 
-    if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY + 9) {
+    if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY + 9 && props.column === card.column) {
       return;
     }
 
@@ -49,15 +49,15 @@ export const cardTarget = {
 // Column Target (only accepts drops when moving card to empty column)
 export const columnTarget = {
   canDrop(props) {
-    return props.cards.length === 0
+    return props.cards.length === props.cards.length
 
   },
 
   drop(props, monitor) {
     const card = monitor.getItem()
     const dragIndex = card.idx;
-    props.moveCard(props.columnIdx)(dragIndex, 0, card.column)
-    monitor.getItem().idx = 0;
+    props.moveCard(props.columnIdx)(dragIndex, Infinity, card.column)
+    monitor.getItem().idx = props.size;
     monitor.getItem().column = props.columnIdx;
   }
 }
