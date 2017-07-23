@@ -18,13 +18,13 @@ class AddColumnForm extends Component {
             display: 'flex',
             justifyContent: 'flex-start',
             alignItems: 'flex-end',
-            marginTop: '15px',
+            marginTop: '11px',
           }}
         >
           <div
             className="button"
             onClick={addColumn.bind(this, newColumnTitle)}
-            style={{ marginTop: '10px' }}
+            style={{ marginTop: '10px', marginLeft: '1px'}}
           >
             Add
           </div>

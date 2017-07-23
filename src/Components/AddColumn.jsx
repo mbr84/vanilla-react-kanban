@@ -22,8 +22,9 @@ class AddColumn extends Component {
 
   render() {
     const { addColumn } = this.props;
+    const padding = this.state.adding ? "1% 0.5% 1%" : '3% .5% 2% .5%'
     return (
-      <div className="column" style={{fontSize: '1.2em'}}>
+      <div className="column" style={{fontSize: '1.2em', padding: padding }}>
         {
           !this.state.adding
           ?

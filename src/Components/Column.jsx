@@ -22,7 +22,7 @@ class Column extends Component {
           </div>
         </div>
         {connectDropTarget(
-          <div style={{ minHeight: "60px", padding: '4px', margin: '0 4px 0 4px' }}>
+          <div style={{ minHeight: "60px", padding: '0 4px 0 4px', margin: '0 4px 0 4px' }}>
             {cards.map((card, i) => (
               <Card
                 idx={i}
