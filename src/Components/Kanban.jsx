@@ -12,14 +12,14 @@ const styles = {
 class Kanban extends Component {
   constructor(props) {
     super(props)
-    const tempState = JSON.parse(localStorage.getItem('lastState'))
+    const lastState = JSON.parse(localStorage.getItem('lastState'))
 
     this.addCard = this.addCard.bind(this);
     this.moveCard = this.moveCard.bind(this);
     this.toggleDrag = this.toggleDrag.bind(this);
     this.saveBoard = this.saveBoard.bind(this);
     this.addColumn = this.addColumn.bind(this);
-    this.state = 
+    this.state = lastState ||
       {
         nextId: 0,
         columns: [

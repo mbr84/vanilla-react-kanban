@@ -35,7 +35,7 @@ export const cardTarget = {
       return;
     }
 
-    if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY + 9 && props.column === card.column) {
+    if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY + 9) {
       return;
     }
 
