@@ -22,17 +22,22 @@ class AddColumn extends Component {
 
   render() {
     const { addColumn } = this.props;
-    const padding = this.state.adding ? "1% 0.5% 1%" : '3% .5% 2% .5%'
     return (
-      <div className="column" style={{fontSize: '1.2em', padding: padding }}>
+      <div className="column" style={{
+          fontSize: '1.2em',
+          padding: '5px',
+          minHeight: '0',
+          background: this.state.adding ? '#E2E4E6' : 'rgba(0,0,0,.12)',
+         }}>
         {
           !this.state.adding
           ?
             <div
+              className="add-column-prompt"
               onClick={this.toggleAddColumn}
               style={{ cursor: 'pointer'}}
             >
-              <MdAddCircleOutline style={{ verticalAlign: 'bottom', fontSize: '1.1em' }}/> New List
+              Add a list...
             </div>
           :
             <AddColumnForm

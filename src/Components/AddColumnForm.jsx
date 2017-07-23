@@ -8,28 +8,27 @@ class AddColumnForm extends Component {
     return (
       <div>
         <input
-          style={{ width: '100%', fontSize: '1rem', height: '36px', boxSizing: 'border-box' }}
           type="text"
           value={newColumnTitle}
           onChange={handleChange}
+          placeholder="Add a list..."
           />
         <div
           style={{
             display: 'flex',
             justifyContent: 'flex-start',
-            alignItems: 'flex-end',
-            marginTop: '11px',
+            alignItems: 'center',
           }}
         >
           <div
             className="button"
             onClick={addColumn.bind(this, newColumnTitle)}
-            style={{ marginTop: '10px', marginLeft: '1px'}}
+            style={{ marginTop: '7px', marginLeft: '1px', padding: '8px 22px' }}
           >
             Add
           </div>
           <MdClose
-            style={{fontSize: '1.9em', cursor: 'pointer', color: 'rgb(136, 136, 136)' }}
+            style={{fontSize: '1.45em', cursor: 'pointer', color: 'rgb(136, 136, 136)' }}
             onClick={toggleAddColumn}
           />
         </div>
