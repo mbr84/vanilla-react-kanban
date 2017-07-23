@@ -3,26 +3,38 @@ import PropTypes from 'prop-types';
 import ItemTypes from '../itemTypes';
 import { DragSource, DropTarget } from 'react-dnd';
 import { cardSource, cardTarget} from '../dragndrop-helpers'
+import { getEmptyImage } from 'react-dnd-html5-backend';
 
 class Card extends Component {
+
+  componentDidMount() {
+    this.props.connectDragPreview(getEmptyImage(), {
+      captureDraggingState: true,
+    });
+  }
+
   render() {
-    const { connectDragSource, dragging, connectDropTarget, text } = this.props;
+    const { connectDragSource, dragging, connectDropTarget, isDragging, text } = this.props;
     const cardClass = dragging ? "card dragging" : "card"
+    const styles = {
+      opacity: isDragging ? 0 : 1,
+      height: isDragging ? 0 : '',
+    }
 
     return connectDragSource(
       connectDropTarget(
-        <div className={cardClass}>{text}</div>
+        <div className={cardClass} style={styles}>{text}</div>
       )
     )
   }
 }
 
 Card.propTypes = {
-  connectDragSource: PropTypes.func.isRequired,
-  connectDropTarget: PropTypes.func.isRequired,
-  dragging: PropTypes.bool.isRequired,
+  connectDragSource: PropTypes.func,
+  connectDropTarget: PropTypes.func,
+  dragging: PropTypes.bool,
   text: PropTypes.string.isRequired,
-  toggleDrag: PropTypes.func.isRequired,
+  toggleDrag: PropTypes.func,
 }
 
 const DropCard = DropTarget(
@@ -34,5 +46,9 @@ const DropCard = DropTarget(
 export default DragSource(
   ItemTypes.CARD,
   cardSource,
-  (connect, monitor) => ({ connectDragSource: connect.dragSource() })
+  (connect, monitor) => ({
+    connectDragSource: connect.dragSource(),
+    connectDragPreview: connect.dragPreview(),
+    isDragging: monitor.isDragging()
+  })
 )(DropCard)

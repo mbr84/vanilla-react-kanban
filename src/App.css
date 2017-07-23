@@ -22,8 +22,7 @@ body {
 }
 
 .column {
-  width: 20vw;
-  min-width: 270px;
+  width: 270px;
   min-height: 129.29px;
   margin: 0 3px 0 3px;
   position: relative;

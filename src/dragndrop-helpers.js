@@ -6,6 +6,7 @@ export const cardSource = {
     return {
       idx: props.idx,
       column: props.column,
+      text: props.text
     }
   },
 

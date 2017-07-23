@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import MdClose from 'react-icons/lib/md/close';
 
-const styles = {
+let styles = {
   boxSizing: 'border-box',
   paddingTop: '5%',
   width: '100%',
@@ -35,7 +35,7 @@ class AddCard extends Component {
     const [toggleButtonText, elHeight] = this.state.adding
       ? [<MdClose style={{fontSize: '1.9em'}}/>, '110px' ]
       : ["Add a Card", "50px"]
-    styles.height = elHeight
+    styles = Object.assign({}, styles, { height: elHeight})
     return (
       <div style={styles}>
         {this.state.adding &&
