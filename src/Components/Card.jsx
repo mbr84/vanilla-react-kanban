@@ -16,10 +16,8 @@ class Card extends Component {
   render() {
     const { connectDragSource, dragging, connectDropTarget, isDragging, text } = this.props;
     const cardClass = dragging ? "card dragging" : "card"
-    const styles = {
-      opacity: isDragging ? 0 : 1,
-      height: isDragging ? 0 : '',
-    }
+    const value = isDragging ? 0 : 1
+    const styles = { opacity: value, height: value }
 
     return connectDragSource(
       connectDropTarget(
