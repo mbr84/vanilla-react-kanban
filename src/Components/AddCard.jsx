@@ -33,22 +33,29 @@ class AddCard extends Component {
   render() {
     const [toggleButtonText, elHeight] = this.state.adding
       ? [<MdClose style={{fontSize: '1.9em'}}/>, '110px' ]
-      : ["Add a Card", "50px"]
+      : ["Add a Card", "35px"]
+
     styles = Object.assign({}, styles, { height: elHeight})
     return (
       <div style={styles}>
         {this.state.adding &&
           <div>
             <textarea
-              style={{ width: '100%', fontSize: '1rem', boxSizing: 'border-box' }}
               type="text"
               value={this.state.newCardText}
               onChange={this.handleChange}
+              onKeyPress={(e) => e.key === "Enter" ? (e.preventDefault(), this.handleSave()) : null}
               />
 
           </div>
         }
-        <div style={{ display: "flex", marginTop: '5px', position: 'absolute', bottom: '18px' }}>
+        <div style={{
+            display: "flex",
+            marginTop: '5px',
+            position: 'absolute',
+            bottom: '10px',
+            fontSize: '15px',
+          }}>
           {this.state.adding &&
             <div
               className="button"

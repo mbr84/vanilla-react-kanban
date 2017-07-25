@@ -4,6 +4,8 @@ export const cardSource = {
   beginDrag(props) {
     props.toggleDrag(props.column, props.idx)
     return {
+      originalIndex: props.idx,
+      originalColumn: props.column,
       idx: props.idx,
       column: props.column,
       text: props.text
@@ -13,6 +15,7 @@ export const cardSource = {
   endDrag(props, monitor) {
     const { column, idx } = monitor.getItem()
     props.toggleDrag(column, idx)
+
   }
 }
 
@@ -48,9 +51,8 @@ export const cardTarget = {
 
 // Column Target (only accepts drops when moving card to empty column)
 export const columnTarget = {
-  canDrop(props) {
-    return props.cards.length === props.cards.length
-
+  canDrop(props, monitor) {
+    return props.columnIdx !== monitor.getItem().column
   },
 
   drop(props, monitor) {

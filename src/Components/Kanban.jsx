@@ -19,13 +19,15 @@ class Kanban extends Component {
     this.toggleDrag = this.toggleDrag.bind(this);
     this.saveBoard = this.saveBoard.bind(this);
     this.addColumn = this.addColumn.bind(this);
+    this.deleteColumn = this.deleteColumn.bind(this);
+    this.editCard = this.editCard.bind(this);
+    this.deleteCard = this.deleteCard.bind(this);
     this.state = lastState ||
       {
-        nextId: 0,
         columns: [
-          { title: "To Do", data: {}, cards: [] },
-          { title: "Doing", data: {}, cards: [] },
-          { title: "Done", data: {}, cards: [] },
+          { title: "To Do", cards: [] },
+          { title: "Doing", cards: [{ text: "winning", id: 0, dragging: false }] },
+          { title: "Done", cards: [] },
         ]
       }
   }
@@ -52,8 +54,28 @@ class Kanban extends Component {
   addCard(column) {
     return newCardText => {
       const columns = this.state.columns
-      columns[column].cards.push({ id: this.state.nextId++,  text: newCardText, dragging: false })
+      const id = columns.reduce((acc, curr) => acc + curr.cards.length, 0)
+      columns[column].cards.push({ id,  text: newCardText, dragging: false })
       this.setState({ columns })
+      this.saveBoard()
+    }
+  }
+
+  editCard(column) {
+    return cardIdx => {
+      return card => {
+        this.setState(update(this.state,
+          { columns: { [column]: {cards: {[cardIdx]: { text: {$set: card }}}} }}
+        ))
+        this.saveBoard()
+      }
+    }
+  }
+
+  deleteCard(column) {
+    return (cardIdx) => {
+      this.setState(update(this.state,
+        { columns: { [column]: { cards: {$splice: [[cardIdx, 1]] } } } }))
       this.saveBoard()
     }
   }
@@ -62,11 +84,22 @@ class Kanban extends Component {
     const _this = this
     return function() {
       return title => {
-        _this.setState(update(_this.state, { columns: {
-          $push: [{ title: title, data: {}, cards: [] }] } }))
+        _this.setState(update(_this.state, {
+          columns: {
+            $push: [{ title, cards: [] }] }
+          }))
         this.setState({ newColumnTitle: "", adding: false })
         _this.saveBoard()
       }
+    }
+  }
+
+  deleteColumn(column) {
+    const columns = this.state.columns
+    return () => {
+      columns.splice(column, 1)
+      this.setState({ columns })
+      this.saveBoard()
     }
   }
 
@@ -88,7 +121,10 @@ class Kanban extends Component {
               cards={column.cards}
               columnIdx={i}
               addCard={this.addCard(i)}
+              editCard={this.editCard(i)}
               toggleDrag={this.toggleDrag}
+              deleteColumn={this.deleteColumn(i)}
+              deleteCard={this.deleteCard(i)}
             />
         ))}
         <AddColumn addColumn={this.addColumn()} />
